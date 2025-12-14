@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --color-primary: 124 58 237;
+    --color-surface: 255 255 255;
+}
+
 [x-cloak] {
     display: none;
 }
