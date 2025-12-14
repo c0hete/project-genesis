@@ -163,7 +163,7 @@ class Booking extends Model
         if ($actualDurationMinutes) {
             $this->actual_duration_minutes = $actualDurationMinutes;
         } elseif ($this->started_at) {
-            $this->actual_duration_minutes = $this->started_at->diffInMinutes(now());
+            $this->actual_duration_minutes = (int) $this->started_at->diffInMinutes(now());
         }
 
         $this->save();
@@ -223,7 +223,7 @@ class Booking extends Model
     /**
      * Report status change to Hub
      */
-    protected function reportStatusChange(string $oldStatus, BookingStatus $newStatus): void
+    protected function reportStatusChange(BookingStatus|string $oldStatus, BookingStatus $newStatus): void
     {
         $action = match ($newStatus) {
             BookingStatus::CONFIRMED => 'booking.confirmed',

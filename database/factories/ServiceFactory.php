@@ -18,10 +18,10 @@ class ServiceFactory extends Factory
     {
         return [
             'name' => 'Service ' . $this->faker->numberBetween(1, 100000),
-            'slug' => 'service-' . $this->faker->unique()->numberBetween(1, 100000),
+            'description' => $this->faker->optional(0.7)->sentence(),
             'duration_minutes' => $this->faker->numberBetween(15, 120),
-            'price_amount' => $this->faker->numberBetween(1000, 10000),
-            'price_currency' => 'USD',
+            'price_cents' => $this->faker->numberBetween(100000, 1000000), // $10-$100 in cents
+            'currency' => $this->faker->randomElement(['USD', 'CLP', 'MXN', 'ARS']),
             'is_active' => true,
         ];
     }
