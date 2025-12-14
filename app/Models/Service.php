@@ -14,23 +14,30 @@ class Service extends Model
 
     protected $fillable = [
         'name',
-        'slug',
+        'description',
         'duration_minutes',
-        'price_amount',
-        'price_currency',
+        'price_cents',
+        'currency',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'duration_minutes' => 'integer',
-        'price_amount' => 'integer',
+        'price_cents' => 'integer',
     ];
 
     protected function price(): Attribute
     {
         return Attribute::make(
-            get: fn () => number_format($this->price_amount / 100, 2, '.', ''),
+            get: fn () => number_format($this->price_cents / 100, 2, '.', ''),
+        );
+    }
+
+    protected function formattedPrice(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => number_format($this->price_cents / 100, 0, ',', '.'),
         );
     }
 }
