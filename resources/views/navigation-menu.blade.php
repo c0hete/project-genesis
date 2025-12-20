@@ -15,6 +15,31 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link href="{{ route('book') }}" :active="request()->routeIs('book*')">
+                        Agendar Cita
+                    </x-nav-link>
+
+                    {{-- Future: My Bookings for clients --}}
+                    {{-- <x-nav-link href="{{ route('my-bookings') }}" :active="request()->routeIs('my-bookings')">
+                        Mis Citas
+                    </x-nav-link> --}}
+
+                    {{-- Future: Admin/Staff links --}}
+                    {{-- @can('manage-bookings')
+                        <x-nav-link href="{{ route('admin.bookings') }}" :active="request()->routeIs('admin.bookings*')">
+                            Citas
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('admin.calendar') }}" :active="request()->routeIs('admin.calendar')">
+                            Calendario
+                        </x-nav-link>
+                    @endcan
+
+                    @can('manage-services')
+                        <x-nav-link href="{{ route('admin.services') }}" :active="request()->routeIs('admin.services*')">
+                            Servicios
+                        </x-nav-link>
+                    @endcan --}}
                 </div>
             </div>
 
@@ -142,6 +167,15 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('book') }}" :active="request()->routeIs('book*')">
+                Agendar Cita
+            </x-responsive-nav-link>
+
+            {{-- Future links commented out --}}
+            {{-- <x-responsive-nav-link href="{{ route('my-bookings') }}" :active="request()->routeIs('my-bookings')">
+                Mis Citas
+            </x-responsive-nav-link> --}}
         </div>
 
         <!-- Responsive Settings Options -->
