@@ -264,12 +264,21 @@
                     <p class="text-sm text-gray-600">
                         Recibirás un recordatorio 24 horas antes de tu cita
                     </p>
-                    <a
-                        href="{{ route('book') }}"
-                        class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                        Agendar otra cita
-                    </a>
+                    @auth
+                        <a
+                            href="{{ route('dashboard') }}"
+                            class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                            Ir al Dashboard
+                        </a>
+                    @else
+                        <a
+                            href="{{ route('book') }}"
+                            class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                            Volver a Inicio
+                        </a>
+                    @endauth
                 </div>
             </div>
         @endif
