@@ -73,7 +73,7 @@
   - **Sin login requerido:** Guest flow completo
 
 **5. Layout Público Unificado y Navbar** ✅ COMPLETADO
-- **Archivo:** `resources/views/layouts/public.blade.php`
+- **Archivo:** `resources/views/components/public-layout.blade.php`
 - **Descripción:** Layout compartido para páginas públicas y autenticadas
 - **Características:**
   - Navbar visible en todas las páginas (públicas y autenticadas)
@@ -101,7 +101,7 @@ resources/views/livewire/booking-landing.blade.php
 resources/views/livewire/booking-wizard.blade.php (274 líneas)
 resources/views/book/index.blade.php
 resources/views/book/wizard.blade.php
-resources/views/layouts/public.blade.php (nuevo layout unificado)
+resources/views/components/public-layout.blade.php (nuevo layout unificado)
 IMPLEMENTATION_LOG.md (este archivo)
 VIEWS_IMPLEMENTATION_PLAN.md (plan completo)
 ```
