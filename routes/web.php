@@ -12,6 +12,10 @@ Route::get('/book', function () {
     return view('book.index');
 })->name('book');
 
+Route::get('/book/{service}', function (\App\Models\Service $service) {
+    return view('book.wizard', ['service' => $service]);
+})->name('book.wizard');
+
 // Authenticated routes
 Route::middleware([
     'auth:sanctum',
