@@ -1,3 +1,3 @@
-<x-guest-layout>
+<x-public-layout>
     @livewire('booking-wizard', ['service' => $service])
-</x-guest-layout>
+</x-public-layout>

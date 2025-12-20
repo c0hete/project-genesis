@@ -59,6 +59,7 @@
     - Crea User automáticamente si no existe (por email)
     - Genera password temporal
     - Resumen visible de fecha/hora seleccionada
+    - Auto-completa datos si usuario está autenticado
   - **Paso 3: Confirmación**
     - Crea Booking con status CREATED
     - Vista de éxito con resumen completo
@@ -70,6 +71,22 @@
     - Validación antes de avanzar
   - **Mobile-responsive:** Diseño adaptativo con Tailwind
   - **Sin login requerido:** Guest flow completo
+
+**5. Layout Público Unificado y Navbar** ✅ COMPLETADO
+- **Archivo:** `resources/views/layouts/public.blade.php`
+- **Descripción:** Layout compartido para páginas públicas y autenticadas
+- **Características:**
+  - Navbar visible en todas las páginas (públicas y autenticadas)
+  - Muestra Login/Register para usuarios no autenticados
+  - Muestra Dashboard/Perfil/Logout para usuarios autenticados
+  - Logo dinámico: lleva a /book (guest) o /dashboard (auth)
+  - Versión responsive con menú hamburguesa
+  - Consistencia visual en toda la aplicación
+- **Archivos actualizados:**
+  - `resources/views/navigation-menu.blade.php` - navbar con @guest/@auth
+  - `resources/views/book/index.blade.php` - usa public-layout
+  - `resources/views/book/wizard.blade.php` - usa public-layout
+  - `resources/views/welcome.blade.php` - usa public-layout
 
 ---
 
@@ -84,6 +101,7 @@ resources/views/livewire/booking-landing.blade.php
 resources/views/livewire/booking-wizard.blade.php (274 líneas)
 resources/views/book/index.blade.php
 resources/views/book/wizard.blade.php
+resources/views/layouts/public.blade.php (nuevo layout unificado)
 IMPLEMENTATION_LOG.md (este archivo)
 VIEWS_IMPLEMENTATION_PLAN.md (plan completo)
 ```
@@ -100,9 +118,23 @@ app/Models/Service.php
   - Actualizado accessor price()
   - Agregado accessor formattedPrice()
 
-resources/views/welcome.blade.php (sesión anterior)
-  - Removido placeholder Laravel
-  - Agregado contenido neutral
+resources/views/navigation-menu.blade.php
+  - Agregado soporte para usuarios guest (@guest/@auth)
+  - Botones Login/Register visibles para no autenticados
+  - Logo dinámico según estado de autenticación
+  - Dashboard solo visible para usuarios autenticados
+  - Versión responsive actualizada con guest options
+
+resources/views/welcome.blade.php
+  - Convertido a usar public-layout
+  - Navbar ahora manejado por layout
+  - Botón "Book Appointment" agregado
+
+resources/views/book/index.blade.php
+  - Cambiado de guest-layout a public-layout
+
+resources/views/book/wizard.blade.php
+  - Cambiado de guest-layout a public-layout
 
 resources/views/components/welcome.blade.php (sesión anterior)
   - Actualizado con features del sistema de booking
@@ -174,9 +206,11 @@ resources/views/components/welcome.blade.php (sesión anterior)
 ### Decisiones de Diseño
 
 1. **Livewire sobre Inertia/Vue:** Más vanilla Laravel, mejor para forkear
-2. **Guest layout:** Sin auth hasta confirmación final
-3. **Token-based management:** Clientes gestionan citas sin login
+2. **Public layout unificado:** Navbar visible siempre (guest y auth) para mejor UX
+3. **Token-based management:** Clientes gestionan citas sin login (pendiente)
 4. **Mobile-first:** Tailwind CSS responsive desde el inicio
+5. **Auto-fill forms:** Datos pre-cargados para usuarios autenticados
+6. **Navegación dinámica:** Logo y links adaptan según estado de autenticación
 
 ### Inconsistencias Encontradas y Corregidas
 
@@ -184,26 +218,38 @@ resources/views/components/welcome.blade.php (sesión anterior)
    - **Problema:** $fillable usaba campos incorrectos
    - **Solución:** Alineado con migration (description, price_cents, currency)
 
+2. **BookingWizard campos requeridos:**
+   - **Problema:** Faltaban duration_minutes, amount_cents, currency al crear Booking
+   - **Solución:** Agregados en BookingWizard.php:152-164
+
+3. **Navbar no visible en páginas públicas:**
+   - **Problema:** guest-layout no tenía navbar, usuarios no podían hacer login/logout
+   - **Solución:** Creado public-layout con navbar unificado
+
 ---
 
-**Última Actualización:** 2025-12-14 (después de implementar BookingWizard completo)
-**Estado General:** 80% Fase 1 completada
+**Última Actualización:** 2025-12-20 (después de implementar layout público unificado)
+**Estado General:** 85% Fase 1 completada
 
 ---
 
 ## Flujo Completo Implementado
 
 ### Cliente puede ahora:
-1. ✅ Ir a `/book` y ver servicios disponibles
-2. ✅ Click "Agendar" en un servicio
-3. ✅ Ver calendario y seleccionar fecha
-4. ✅ Ver slots disponibles (filtrando ocupados)
-5. ✅ Seleccionar hora
-6. ✅ Ingresar sus datos (nombre, email, teléfono, notas)
-7. ✅ Ver confirmación de cita agendada
-8. ✅ Sistema crea User + Booking automáticamente
+1. ✅ Ver navbar en todas las páginas (público y autenticado)
+2. ✅ Hacer login/logout desde cualquier página
+3. ✅ Ir a `/book` y ver servicios disponibles
+4. ✅ Click "Agendar" en un servicio
+5. ✅ Ver calendario y seleccionar fecha
+6. ✅ Ver slots disponibles (filtrando ocupados)
+7. ✅ Seleccionar hora
+8. ✅ Ingresar sus datos (auto-completados si está autenticado)
+9. ✅ Ver confirmación de cita agendada
+10. ✅ Sistema crea User + Booking automáticamente
+11. ✅ Navbar se adapta dinámicamente (guest vs auth)
 
-### Falta (Fase 1 - 20%):
+### Falta (Fase 1 - 15%):
 - ⏳ Gestión de cita con token (`/bookings/{uuid}/manage?token=xxx`)
 - ⏳ Email de confirmación con iCal
 - ⏳ Integración con payment gateway (opcional)
+- ⏳ Verificar expiración de sesión y redirección

@@ -1,3 +1,3 @@
-<x-guest-layout>
+<x-public-layout>
     @livewire('booking-landing')
-</x-guest-layout>
+</x-public-layout>
