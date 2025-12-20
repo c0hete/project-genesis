@@ -255,8 +255,7 @@
                     <div class="space-y-2 text-sm text-gray-600">
                         <p><strong>Servicio:</strong> {{ $service->name }}</p>
                         <p><strong>Fecha:</strong> {{ $booking->scheduled_at->format('d/m/Y') }}</p>
-                        <p><strong>Hora:</strong> {{ $booking->scheduled_at->format('H:i') }}</p>
-                        <p><strong>Duración:</strong> {{ $service->duration_minutes }} minutos</p>
+                        <p><strong>Hora:</strong> {{ $booking->scheduled_at->format('H:i') }} - {{ $booking->scheduled_at->copy()->addMinutes($service->duration_minutes)->format('H:i') }}</p>
                         <p><strong>Cliente:</strong> {{ $booking->client_name }}</p>
                     </div>
                 </div>
