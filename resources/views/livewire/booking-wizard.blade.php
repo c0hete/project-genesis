@@ -247,7 +247,7 @@
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-2">¡Cita Agendada!</h3>
-                    <p class="text-gray-600">Te hemos enviado un email de confirmación</p>
+                    <p class="text-gray-600">Recibirás un email de confirmación 24 horas antes de tu cita</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6 mb-6 text-left">
@@ -261,9 +261,6 @@
                 </div>
 
                 <div class="space-y-3">
-                    <p class="text-sm text-gray-600">
-                        Recibirás un recordatorio 24 horas antes de tu cita
-                    </p>
                     @auth
                         <a
                             href="{{ route('dashboard') }}"
