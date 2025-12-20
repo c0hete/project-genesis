@@ -46,6 +46,14 @@ class BookingWizard extends Component
         $this->service = $service;
         $this->currentMonth = now()->month;
         $this->currentYear = now()->year;
+
+        // Auto-fill if user is authenticated
+        if (auth()->check()) {
+            $user = auth()->user();
+            $this->clientName = $user->name;
+            $this->clientEmail = $user->email;
+            // Phone would come from user profile if we had that field
+        }
     }
 
     public function selectDate(string $date)
@@ -153,10 +161,13 @@ class BookingWizard extends Component
             'user_id' => $user->id,
             'service_id' => $this->service->id,
             'scheduled_at' => $scheduledAt,
+            'duration_minutes' => $this->service->duration_minutes,
+            'amount_cents' => $this->service->price_cents,
+            'currency' => $this->service->currency,
             'client_name' => $this->clientName,
             'client_email' => $this->clientEmail,
             'client_phone' => $this->clientPhone,
-            'notes' => $this->notes,
+            'client_notes' => $this->notes,
             'status' => \App\Enums\BookingStatus::CREATED,
         ]);
 

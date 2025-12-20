@@ -149,7 +149,12 @@
                     </div>
                 </div>
 
-                <h3 class="text-lg font-semibold text-gray-900 mb-6">Tus datos</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-6">
+                    Tus datos
+                    @auth
+                        <span class="text-sm text-gray-500 font-normal ml-2">(Pre-cargados de tu cuenta)</span>
+                    @endauth
+                </h3>
 
                 <form wire:submit.prevent="goToStep3" class="space-y-4">
                     <div>
